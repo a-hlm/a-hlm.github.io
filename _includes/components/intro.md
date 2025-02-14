@@ -1,3 +1,9 @@
-Friday Theme is a theme for Jekyll using Bootstrap 4.4 designed to build a great personal web site with a portfolio, blog and project documentation. It is compatible with GitHub Pages. It supports all the Bootstrap components, it has blogs with tags, it has syntax highlighting and it has SVG icons. It is customisable with SCSS by simply changing the default boostrap variables.
+Currently, I am a third-year PhD student in the number theory team in the [UMPA laboratory](https://www.umpa.ens-lyon.fr/) (ENS de Lyon) under the supervision of [Benjamin Wesolowski](https://www.bweso.com/) and 
+[Guillaume Hanrot](https://perso.ens-lyon.fr/guillaume.hanrot/).
+During my first year as a PhD student, I was part of the ARIC team in the [LIP laboratory](https://www.ens-lyon.fr/LIP/) (ENS de Lyon).
 
-It is maintained by Simon Freytag on [GitHub](https://github.com/sfreytag/friday-theme) and it was built originally for [Simon's own portfolio](http://www.freytag.org.uk).
+I am interested in the cryptographic applications of algorithmic number theory and algebraic geometry, especially in the context of isogeny-based post-quantum cryptography.
+
+I completed a Bachelor's and Master's degree in Mathematics at the Université de Rennes 1 with a specific focus on the mathematics of cryptography during my postgraduate studies.
+
+

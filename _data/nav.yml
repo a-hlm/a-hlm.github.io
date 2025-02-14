@@ -1,13 +1,13 @@
-- title: Home
+- title: About
   href: index.html
 
-- title: About
-  href: about.html
-
-- title: Posts
-  href: list/posts.html
-
-- title: Documentation
-  href: list/projects.html
-
+- title: Research
+  href: research.html
+  
+- title: Talks
+  href: talks.html
+  
+- title: Teaching
+  href: teaching.html
+  
 
