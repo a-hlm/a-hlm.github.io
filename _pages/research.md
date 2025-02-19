@@ -5,16 +5,19 @@ narrow: true
 title: Research
 ---
 
-### Ongoing work
+[comment]:### Ongoing work
 
-- **Unconditional foundations for supersingular isogeny-based cryptography**
-<br>
-with Benjamin Wesolowski
+[comment]:- **Unconditional foundations for supersingular isogeny-based cryptography**
+[comment]:<br>
+[comment]:with Benjamin Wesolowski
 
 
 ### Preprints
 
-{% for paper in site.papers %}
+
+{% assign reversed_pres = site.papers | reverse %}
+
+{% for paper in reversed_pres %}
 
 - **{{paper.title}}**
  <br> 
