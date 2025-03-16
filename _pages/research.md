@@ -15,11 +15,11 @@ title: Research
 ### Preprints
 
 
-{% assign reversed_pres = site.papers | reverse %}
+{% assign reversed_papers = site.papers | reverse %}
 
-{% for paper in reversed_pres %}
+{% for paper in reversed_papers %}
 
-- **{{paper.title}}**{% if pres.custom_accepted != false %}, _Accepted for publication {{pres.custom_accepted}}_{% endif %}
+- **{{paper.title}}**{% if paper.custom_accepted != false %}, _Accepted for publication {{paper.custom_accepted}}_{% endif %}
  <br> 
  with {{paper.custom_coauthors}}
  <br>
