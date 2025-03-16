@@ -19,7 +19,7 @@ title: Research
 
 {% for paper in reversed_pres %}
 
-- **{{paper.title}}**
+- **{{paper.title}}**{% if pres.custom_accepted != false %}, _Accepted for publication {{pres.custom_accepted}}_{% endif %}
  <br> 
  with {{paper.custom_coauthors}}
  <br>

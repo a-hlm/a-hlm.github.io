@@ -4,4 +4,5 @@ custom_coauthors: Pierrick Dartois, Jonathan Komada Eriksen, Tako Boris Fouotsa,
 custom_year: 2025
 custom_journal: Cryptology ePrint Archive 2025
 custom_url: https://eprint.iacr.org/2025/401
+custom_accepted: false
 ---
