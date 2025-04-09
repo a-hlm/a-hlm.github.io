@@ -13,6 +13,17 @@ title: Research
 
 ### Publications
 
+{% assign reversed_papers = site.papers | reverse %}
+
+{% for paper in reversed_papers %}
+
+- **{{paper.title}}**
+ <br> 
+ with {{paper.custom_coauthors}}
+ <br>
+ [{{paper.custom_journal}}]({{paper.custom_url}})
+ 
+{% endfor %}
 
 
 ### Preprints
