@@ -11,18 +11,21 @@ title: Research
 [comment]:<br>
 [comment]:with Benjamin Wesolowski
 
+### Publications
+
+
 
 ### Preprints
 
 
-{% assign reversed_papers = site.papers | reverse %}
+{% assign reversed_preprints = site.preprints | reverse %}
 
-{% for paper in reversed_papers %}
+{% for preprint in reversed_preprints %}
 
-- **{{paper.title}}**{% if paper.custom_accepted != false %}, _Accepted for publication {{paper.custom_accepted}}_{% endif %}
+- **{{preprint.title}}**{% if preprint.custom_accepted != false %}, _Accepted for publication {{preprint.custom_accepted}}_{% endif %}
  <br> 
- with {{paper.custom_coauthors}}
+ with {{preprint.custom_coauthors}}
  <br>
- [{{paper.custom_journal}}]({{paper.custom_url}})
+ [{{preprint.custom_journal}}]({{preprint.custom_url}})
  
 {% endfor %}
