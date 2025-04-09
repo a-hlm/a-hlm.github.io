@@ -30,6 +30,10 @@ collections:
     output: true
     title: Papers
     permalink: /:collection/:name.html
+  preprints:
+    output: true
+    title: Preprints
+    permalink: /:collection/:name.html
   pres:
     output: true
     title: Pres
