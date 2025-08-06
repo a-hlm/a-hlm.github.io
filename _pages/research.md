@@ -39,7 +39,7 @@ title: Research
  <br>
  [{{paper.custom_journal}}]({{paper.custom_url}})
  <br>
- \(also on [Cryptology ePrint Archive]({{paper.custom_eprint}})\)
+ \(available on [Cryptology ePrint Archive]({{paper.custom_eprint}})\)
  
 {% endfor %}
 
