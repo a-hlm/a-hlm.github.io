@@ -23,7 +23,7 @@ title: Research
  <br> 
  with {{preprint.custom_coauthors}}
  <br>
- [{{preprint.custom_journal}}]({{preprint.custom_url}})
+ \(available on  [{{preprint.custom_journal}}]({{preprint.custom_url}})\)
  
 {% endfor %}
 
