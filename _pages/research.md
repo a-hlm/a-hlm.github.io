@@ -37,7 +37,7 @@ title: Research
  <br> 
  with {{paper.custom_coauthors}}
  <br>
- [{{Cryptology ePrint Archive}}]({{paper.custom_eprint}})
+ [Cryptology ePrint Archive]({{paper.custom_eprint}})
  <br>
  [{{paper.custom_journal}}]({{paper.custom_url}})
  
