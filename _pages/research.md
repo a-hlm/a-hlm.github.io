@@ -43,3 +43,11 @@ title: Research
  
 {% endfor %}
 
+### Thesis
+
+
+- **On the foundations of supersingular isogeny-based cryptography**
+ <br>
+ \(link({{https://a-hlm.github.io/theme/pdf/manuscript_updated.pdf}})\)
+ 
+
