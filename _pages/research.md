@@ -43,10 +43,14 @@ title: Research
  
 {% endfor %}
 
-### Thesis
+### PhD Thesis
 
 - **On the foundations of supersingular isogeny-based cryptography**
+ <br> 
+ supervised by Benjamin Wesolowski and Guillaume Hanrot
+ <br> 
+ presented on 18 September 2025 at École Normale Supérieure de Lyon (ENS Lyon), France 
  <br>
- \([link](https://a-hlm.github.io/theme/pdf/manuscript_updated.pdf)\)
+ \([manuscript](https://a-hlm.github.io/theme/pdf/manuscript_updated.pdf)\)
  
 
