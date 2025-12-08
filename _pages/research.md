@@ -22,8 +22,7 @@ title: Research
  <br>
  \([manuscript](https://a-hlm.github.io/theme/pdf/manuscript_updated.pdf)\)
  
-[comment]: <> (
-### Preprints
+[comment]: <> (### Preprints)
 
 
 {% assign reversed_preprints = site.preprints | reverse %}
@@ -36,7 +35,7 @@ title: Research
  <br>
  \(available on  [{{preprint.custom_journal}}]({{preprint.custom_url}})\)
  
-{% endfor %})
+{% endfor %}
 
 ### Publications
 
