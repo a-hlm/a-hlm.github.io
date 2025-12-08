@@ -22,7 +22,7 @@ title: Research
  <br>
  \([manuscript](https://a-hlm.github.io/theme/pdf/manuscript_updated.pdf)\)
  
-
+[comment]: <> (
 ### Preprints
 
 
@@ -36,7 +36,7 @@ title: Research
  <br>
  \(available on  [{{preprint.custom_journal}}]({{preprint.custom_url}})\)
  
-{% endfor %}
+{% endfor %})
 
 ### Publications
 
