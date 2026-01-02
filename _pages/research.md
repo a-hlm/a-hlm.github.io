@@ -47,7 +47,7 @@ title: Research
  <br> 
  with {{paper.custom_coauthors}}
  <br>
- [{{paper.custom_journal}}]({{paper.custom_url}})
+ in [{{paper.custom_journal}}]({{paper.custom_url}})
  <br>
  \(available on [Cryptology ePrint Archive]({{paper.custom_eprint}})\)
  
