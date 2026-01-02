@@ -20,7 +20,7 @@ title: Research
  <br> 
  presented on 18 September 2025 at École Normale Supérieure de Lyon (ENS de Lyon), France 
  <br>
- \([manuscript](https://hal.science/tel-05289296v2)\)
+ \([available on HAL](https://hal.science/tel-05289296v2)\)
  
 [comment]: <> (### Preprints)
 
