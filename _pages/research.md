@@ -39,6 +39,13 @@ title: Research
 
 ### Publications
 
+
+- **Compressed Post-Quantum Silent OT from Isogenies**
+ <br> 
+ with Pouria Fallahpour and Mahshid Riahinia
+ <br>
+ \(accepted for publication at [SCN 2026](https://scn.unisa.it/scn26/)\)
+
 {% assign reversed_papers = site.papers | reverse %}
 
 {% for paper in reversed_papers %}
