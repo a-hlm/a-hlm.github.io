@@ -22,8 +22,7 @@ title: Research
  <br>
  \(available on [HAL](https://hal.science/tel-05289296v2)\)
  
-[comment]: <> (### Preprints)
-
+### Preprints
 
 {% assign reversed_preprints = site.preprints | reverse %}
 
