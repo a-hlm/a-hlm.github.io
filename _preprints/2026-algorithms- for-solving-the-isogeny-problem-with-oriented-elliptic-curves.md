@@ -1,4 +1,4 @@
-title: "Algorithms for solving the isogeny problem with oriented elliptic curves"
+title: Algorithms for solving the isogeny problem with oriented elliptic curves
 custom_coauthors: Maria Corte-Real Santos, Joseph Macula, Michael Meyer, Travis Morrison and Eli Orvis
 custom_year: 2026
 custom_journal: Cryptology ePrint Archive 2026
