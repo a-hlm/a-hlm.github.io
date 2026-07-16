@@ -43,7 +43,9 @@ title: Research
  <br> 
  with Pouria Fallahpour and Mahshid Riahinia
  <br>
- \(accepted for publication at [SCN 2026](https://scn.unisa.it/scn26/)\)
+ accepted for publication at [SCN 2026](https://scn.unisa.it/scn26/)
+ <br>
+ \(extended version available on [Cryptology ePrint Archive](https://eprint.iacr.org/2026/1444)\)
 
 {% assign reversed_papers = site.papers | reverse %}
 
