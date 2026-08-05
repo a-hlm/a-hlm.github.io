@@ -1,0 +1,80 @@
+- id: HomModule
+  shortname: '<span style="font-variant: small-caps;">HomModule</span>'
+  fullname: The Homomorphism Module Problem
+  description: 'Given two supersingular elliptic curves defined over $\mathbb{F}_p$, compute $b$. \textsc{TESTest}'
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1"]
+  references:
+    - Wes22
+    - Wes21
+
+- id: MaxOrder
+  name: '<span style="font-variant: small-caps;">MaxOrder</span>'
+  description: 'The Maximal Order Problem: Given $a$ compute $b$.'
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1"]
+  references:
+    - Wes22
+    - Wes21
+
+- id: OneEnd
+  name: '<span style="font-variant: small-caps;">OneEnd</span>'
+  description: "The One Endomorphism Problem"
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1"]
+  references:
+    - Wes22
+    - Wes21
+    
+- id: MOER
+  name: '<span style="font-variant: small-caps;">MOER</span>'
+  description: 'The MOER Problem'
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1"]
+  references:
+    - Wes22
+    - Wes21
+    
+- id: MaxOrderQ
+  name: '<span style="font-variant: small-caps;">MaxOrder$_\mathcal{Q}$</span>'
+  description: 'The MaxOrder_Q Problem'
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1"]
+  references:
+    - Wes22
+    - Wes21
+
+- id: EndRing
+  name: '<span style="font-variant: small-caps;">EndRing</span>'
+  description: "The Endomorphism Ring Problem"
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1"]
+  references:
+    - Wes22
+    - Wes21
+
+- id: Isogeny
+  name: '<span style="font-variant: small-caps;">Isogeny</span>'
+  description: "Isogeny problem"
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1"]
+  references:
+    - Wes22
+
+- id: lIsogenyPath
+  shortname: '$\ell$-<span style="font-variant: small-caps;">IsogenyPath</span>'
+  fullname: 'The $\ell$-Isogeny Path Problem'
+  description: 'Given two supersingular elliptic curves E1 and E2, compute an isogeny of degree $\ell^n$ between them.'
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1", "isogeny graph"]
+  references:
+    - Wes22
+    - KLPT14
+    
+- id: RHIquintic
+  name: '<span style="font-variant: small-caps;">RHI-Quintic</span>'
+  description: "To do"
+  family: "Fundamental 1-dimensional problem"
+  keywords: ["dim 1", "isogeny graph"]
+  references:
+    - KM25

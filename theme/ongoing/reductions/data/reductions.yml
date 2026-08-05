@@ -1,0 +1,76 @@
+#Results from https://eprint.iacr.org/2023/1399
+
+- from: OneEnd
+  to: EndRing
+  
+- from: EndRing
+  to: OneEnd
+  style: "thick"
+  references:
+    - PW24
+
+#Results from https://eprint.iacr.org/2025/271
+
+- from: OneEnd
+  to: MaxOrder
+  references:
+    - HW26
+    
+- from: OneEnd
+  to: Isogeny
+  references:
+    - HW26
+    
+- from: EndRing
+  to: MOER
+    
+- from: MOER
+  to: EndRing
+  references:
+    - HW26
+
+- from: MaxOrder
+  to: MaxOrderQ
+  
+- from: MaxOrderQ
+  to: MaxOrder
+  references:
+    - HW26
+    
+- from: MaxOrder
+  to: MOER
+
+- from: Isogeny
+  to: lIsogenyPath
+  
+- from: lIsogenyPath
+  to: MaxOrder
+  label: "(GRH)"
+  references:
+    - Wes21
+    - KLPT14
+	
+- from: Isogeny
+  to: MOER
+  references:
+    - HW26
+    
+- from: Isogeny
+  to: HomModule
+    
+- from: HomModule
+  to: Isogeny
+  references:
+    - HW26
+    
+- from: lIsogenyPath
+  to: RHIquintic
+  label: "(GRH)"
+  references:
+    - KM25
+    
+- from: RHIquintic
+  to: lIsogenyPath
+  label: "(GRH)"
+  references:
+    - KM25
