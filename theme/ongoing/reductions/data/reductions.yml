@@ -14,12 +14,12 @@
 - from: OneEnd
   to: MaxOrder
   references:
-    - HW26
+    - HW25a
     
 - from: OneEnd
   to: Isogeny
   references:
-    - HW26
+    - HW25a
     
 - from: EndRing
   to: MOER
@@ -27,7 +27,7 @@
 - from: MOER
   to: EndRing
   references:
-    - HW26
+    - HW25a
 
 - from: MaxOrder
   to: MaxOrderQ
@@ -53,7 +53,7 @@
 - from: Isogeny
   to: MOER
   references:
-    - HW26
+    - HW25a
     
 - from: Isogeny
   to: HomModule
@@ -61,8 +61,10 @@
 - from: HomModule
   to: Isogeny
   references:
-    - HW26
+    - HW25a
     
+#RHI problems
+
 - from: lIsogenyPath
   to: RHIquintic
   label: "(GRH)"
@@ -74,3 +76,77 @@
   label: "(GRH)"
   references:
     - KM25
+    
+# Oriented problems reductions
+
+- from: EndRingO
+  to: EndRing
+  
+- from: EndRing
+  to: EndRingO
+  longlabel: 'when $\tilde{\operatorname{SS}}_\mathfrak{O}(p) = \operatorname{SS}_\mathfrak{O}(p)$'
+    
+- from: EndRingO
+  to: OEndRingstar
+  
+- from: EndRingO
+  to: OEndRingstar
+  longlabel: 'when $\operatorname{disc}(\mathfrak{O}) = O(p^{4/3})$'
+  references:
+    - EL24
+    
+- from: OEndRingstar
+  to: OUber
+  label: '(GRH)'
+  references:
+    - Wes22a
+    
+- from: OUber
+  to: OEndRingstar
+  references:
+    - EL24
+    
+- from: OVect
+  to: OUber
+  label: '(GRH)'
+  references:
+    - Wes22a
+  
+- from: OVect
+  to: OPara
+  label: '(GRH)'
+  style: 'thick'
+  color: '#00CC66'
+  references:
+    - Wes22a
+    
+- from: OVect
+  to: EffOVect
+  
+- from: OEndRing
+  to: OVect
+  label: '(GRH)'
+  references:
+    - Wes22a
+    
+- from: EffOVect
+  to: OEndRing
+  references:
+    - EL24  
+    
+- from: OEndRing
+  to: alphaEndRing
+  longlabel: 'given factorization of $\operatorname{disc}(\mathfrak{O})$'
+  references:
+    - HW25b
+    
+- from: alphaEndRing
+  to: OEndRing
+  
+- from: OEndRing
+  to: OVect
+  label: '(GRH)'
+  longlabel: 'given factorization of $\operatorname{disc}(\mathfrak{O})$'
+  references:
+    - Wes22a
+

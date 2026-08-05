@@ -1,80 +1,169 @@
+# Fundamental 1-dimensional problem
+
 - id: HomModule
   shortname: '<span style="font-variant: small-caps;">HomModule</span>'
   fullname: The Homomorphism Module Problem
-  description: 'Given two supersingular elliptic curves defined over $\mathbb{F}_p$, compute $b$. \textsc{TESTest}'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1"]
+  keywords: ["fundamental", "dimension 1"]
   references:
-    - Wes22
-    - Wes21
+    - Wes22b
 
 - id: MaxOrder
-  name: '<span style="font-variant: small-caps;">MaxOrder</span>'
-  description: 'The Maximal Order Problem: Given $a$ compute $b$.'
+  shortname: '<span style="font-variant: small-caps;">MaxOrder</span>'
+  fullname: 'The Maximal Order Problem'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1"]
+  keywords: ["fundamental", "dimension 1"]
   references:
-    - Wes22
-    - Wes21
+    - Wes22b
 
 - id: OneEnd
-  name: '<span style="font-variant: small-caps;">OneEnd</span>'
-  description: "The One Endomorphism Problem"
+  shortname: '<span style="font-variant: small-caps;">OneEnd</span>'
+  fullname: 'The One Endomorphism Problem'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1"]
+  keywords: ["fundamental"," dimension 1"]
   references:
-    - Wes22
-    - Wes21
+    - Wes22b
     
 - id: MOER
-  name: '<span style="font-variant: small-caps;">MOER</span>'
-  description: 'The MOER Problem'
+  shortname: '<span style="font-variant: small-caps;">MOER</span>'
+  fullname: 'The <span style="font-variant: small-caps;">MOER</span> Problem'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1"]
+  keywords: ["fundamental", "dimension 1"]
   references:
-    - Wes22
-    - Wes21
+    - HW25a
     
 - id: MaxOrderQ
-  name: '<span style="font-variant: small-caps;">MaxOrder$_\mathcal{Q}$</span>'
-  description: 'The MaxOrder_Q Problem'
+  shortname: '<span style="font-variant: small-caps;">MaxOrder$_\mathcal{Q}$</span>'
+  fullname: 'The <span style="font-variant: small-caps;">MaxOrder$_\mathcal{Q}$</span> Problem'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1"]
+  keywords: ["fundamental", "dimension 1"]
   references:
-    - Wes22
-    - Wes21
+    - HW25a
 
 - id: EndRing
-  name: '<span style="font-variant: small-caps;">EndRing</span>'
-  description: "The Endomorphism Ring Problem"
+  shortname: '<span style="font-variant: small-caps;">EndRing</span>'
+  fullname: 'The Endomorphism Ring Problem'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1"]
+  keywords: ["fundamental", "dimension 1"]
   references:
-    - Wes22
-    - Wes21
+    - Wes22b
 
 - id: Isogeny
-  name: '<span style="font-variant: small-caps;">Isogeny</span>'
-  description: "Isogeny problem"
+  shortname: '<span style="font-variant: small-caps;">Isogeny</span>'
+  fullname: 'The Isogeny Problem'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1"]
+  keywords: ["fundamental", "dimension 1"]
   references:
-    - Wes22
+    - Wes22b
 
 - id: lIsogenyPath
   shortname: '$\ell$-<span style="font-variant: small-caps;">IsogenyPath</span>'
   fullname: 'The $\ell$-Isogeny Path Problem'
-  description: 'Given two supersingular elliptic curves E1 and E2, compute an isogeny of degree $\ell^n$ between them.'
+  description: 'To do'
   family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1", "isogeny graph"]
+  keywords: ["fundamental", "dimension 1", "isogeny graph"]
   references:
-    - Wes22
+    - Wes22b
     - KLPT14
-    
+
+# What is their category?
 - id: RHIquintic
-  name: '<span style="font-variant: small-caps;">RHI-Quintic</span>'
-  description: "To do"
-  family: "Fundamental 1-dimensional problem"
-  keywords: ["dim 1", "isogeny graph"]
+  shortname: '<span style="font-variant: small-caps;">RHI-Quintic</span>'
+  fullname: "The Computational Quintic Refined Humbert Invariant Problem"
+  description: 'To do'
+  family: "?"
+  keywords: ["dimension 2"]
   references:
     - KM25
+    
+- id: RHIternary
+  shortname: '<span style="font-variant: small-caps;">RHI-Ternary</span>'
+  fullname: "The Computational Ternary Refined Humbert Invariant Problem"
+  description: 'To do'
+  family: "?"
+  keywords: ["dimension 2"]
+  references:
+    - KM25
+    
+    
+# Oriented Problems
+
+- id: EndRingO
+  shortname: '<span style="font-variant: small-caps;">EndRing$_{|\mathfrak{O}}$</span>'
+  fullname: 'The <span style="font-variant: small-caps;">EndRing$_{|\mathfrak{O}}$</span> problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - Wes22a
+    
+- id: OEndRing
+  shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing</span>'
+  fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing</span> Problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - Wes22a
+    
+    
+- id: OVect
+  shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-Vectorisation</span>'
+  fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-Vectorisation</span> Problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - Wes22a
+    
+- id: EffOVect
+  shortname: '<span style="font-variant: small-caps;">Effective $\mathfrak{O}$-Vectorisation</span>'
+  fullname: 'The <span style="font-variant: small-caps;">Effective $\mathfrak{O}$-Vectorisation</span> Problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - Wes22a
+    
+- id: OPara
+  shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-Parallelisation</span>'
+  fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-Parallelisation</span> Problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - Wes22a
+    
+- id: OUber
+  shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-Uber</span>'
+  fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-Uber</span> Problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - Wes22a
+    
+- id: alphaEndRing
+  shortname: '<span style="font-variant: small-caps;">$\alpha$-EndRing</span>'
+  fullname: 'The <span style="font-variant: small-caps;">$\alpha$-EndRing</span> Problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - HW25b
+    
+- id: OEndRingstar
+  shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing$^*$</span>'
+  fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing$^*$</span> Problem'
+  description: "To do"
+  family: "?"
+  keywords: ["dimension 1", "orientation"]
+  references:
+    - Wes22a

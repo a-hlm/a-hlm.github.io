@@ -59,6 +59,186 @@ function createArrowMarker(defs, id, color, size = 10) {
     return marker;
 }
 
+// Function to check if a node matches any of the search keywords
+function nodeMatchesSearch(d, keywords) {
+    if (!keywords || keywords.length === 0) return false;
+    
+    return keywords.some(keyword => {
+        const k = keyword.toLowerCase().trim();
+        if (!k) return false;
+        const shortMatch = (d.data.shortname || "").toLowerCase().includes(k);
+        const fullMatch = (d.data.fullname || "").toLowerCase().includes(k);
+        const nameMatch = (d.data.name || "").toLowerCase().includes(k);
+        const keywordMatch = d.keywords.some(kw => kw.toLowerCase().includes(k));
+        const descMatch = (d.data.description || "").toLowerCase().includes(k);
+        return shortMatch || fullMatch || nameMatch || keywordMatch || descMatch;
+    });
+}
+
+// Function to highlight based on search (ONLY matching nodes and edges BETWEEN matching nodes)
+function highlightSearchMatches(g, matchingNodeIds) {
+    if (matchingNodeIds.size === 0) {
+        resetHighlight(g);
+        return;
+    }
+
+    // For search: ONLY matching nodes and edges where BOTH endpoints are matching
+    const connectedNodes = new Set(matchingNodeIds);
+    const connectedEdges = new Set();
+    
+    g.selectAll(".edge").each(function() {
+        const edgeSource = this.getAttribute("data-source");
+        const edgeTarget = this.getAttribute("data-target");
+        // Only include edges where BOTH source AND target are in matchingNodeIds
+        if (matchingNodeIds.has(edgeSource) && matchingNodeIds.has(edgeTarget)) {
+            connectedEdges.add(edgeSource + "-" + edgeTarget);
+        }
+    });
+
+    applyHighlight(g, connectedNodes, connectedEdges);
+}
+
+// Function to highlight based on node hover (highlights all connected edges and neighbors)
+function highlightNodeMatches(g, matchingNodeIds) {
+    if (matchingNodeIds.size === 0) {
+        resetHighlight(g);
+        return;
+    }
+
+    // Find all connected edges and nodes (full neighborhood)
+    const connectedNodes = new Set(matchingNodeIds);
+    const connectedEdges = new Set();
+    
+    g.selectAll(".edge").each(function() {
+        const edgeSource = this.getAttribute("data-source");
+        const edgeTarget = this.getAttribute("data-target");
+        if (matchingNodeIds.has(edgeSource) || matchingNodeIds.has(edgeTarget)) {
+            connectedNodes.add(edgeSource);
+            connectedNodes.add(edgeTarget);
+            connectedEdges.add(edgeSource + "-" + edgeTarget);
+        }
+    });
+
+    applyHighlight(g, connectedNodes, connectedEdges);
+}
+
+// Function to highlight based on edge hover (only highlights the specific edge and its two nodes)
+function highlightEdgeMatch(g, sourceId, targetId) {
+    const connectedNodes = new Set([sourceId, targetId]);
+    const connectedEdges = new Set([sourceId + "-" + targetId]);
+    
+    applyHighlight(g, connectedNodes, connectedEdges);
+}
+
+// Function to apply the actual highlighting
+function applyHighlight(g, connectedNodes, connectedEdges) {
+    // Highlight edges
+    g.selectAll(".edge")
+        .style("opacity", function() {
+            const edgeSource = this.getAttribute("data-source");
+            const edgeTarget = this.getAttribute("data-target");
+            const edgeId = edgeSource + "-" + edgeTarget;
+            const isHighlighted = connectedEdges.has(edgeId);
+            return isHighlighted ? 1 : 0.05;
+        })
+        .style("stroke-width", function() {
+            const edgeSource = this.getAttribute("data-source");
+            const edgeTarget = this.getAttribute("data-target");
+            const edgeId = edgeSource + "-" + edgeTarget;
+            const isHighlighted = connectedEdges.has(edgeId);
+            const style = this.getAttribute("data-style") || "normal";
+            if (isHighlighted) {
+                return style === "thick" ? 4 : 1.25;
+            }
+            return style === "thick" ? 4 : 1.25;
+        });
+
+    // Highlight nodes
+    g.selectAll(".node")
+        .style("opacity", function() {
+            const nodeId = this.getAttribute("data-id");
+            return connectedNodes.has(nodeId) ? 1 : 0.05;
+        });
+
+    // Highlight edge labels
+    g.selectAll(".edge-label-group")
+        .style("opacity", function() {
+            const thisSource = this.getAttribute("data-source");
+            const thisTarget = this.getAttribute("data-target");
+            const edgeId = thisSource + "-" + thisTarget;
+            return connectedEdges.has(edgeId) ? 1 : 0.05;
+        });
+
+    // Bring connected nodes to front
+    g.selectAll(".node").each(function() {
+        const nodeId = this.getAttribute("data-id");
+        if (connectedNodes.has(nodeId)) {
+            this.parentNode.appendChild(this);
+        }
+    });
+    
+    // Bring connected edge labels to front
+    g.selectAll(".edge-label-group").each(function() {
+        const thisSource = this.getAttribute("data-source");
+        const thisTarget = this.getAttribute("data-target");
+        const edgeId = thisSource + "-" + thisTarget;
+        if (connectedEdges.has(edgeId)) {
+            this.parentNode.appendChild(this);
+        }
+    });
+}
+
+// Function to reset highlighting
+function resetHighlight(g) {
+    g.selectAll(".edge")
+        .style("opacity", 1)
+        .style("stroke-width", function() {
+            const style = this.getAttribute("data-style") || "normal";
+            return style === "thick" ? 4 : 1.25;
+        });
+    g.selectAll(".node")
+        .style("opacity", 1);
+    g.selectAll(".edge-label-group")
+        .style("opacity", 1);
+}
+
+// Function to reapply search if active
+function reapplySearch(g, searchInput) {
+    const q = searchInput.value.trim();
+    if (q === '') {
+        resetHighlight(g);
+        return;
+    }
+    
+    // Split by commas and trim
+    const keywords = q.split(',').map(k => k.trim()).filter(k => k !== '');
+    
+    const matchingIds = new Set();
+    g.selectAll(".node").each(function() {
+        const d = d3.select(this).data()[0];
+        if (d && nodeMatchesSearch(d, keywords)) {
+            matchingIds.add(d.id);
+        }
+    });
+    
+    highlightSearchMatches(g, matchingIds);
+}
+
+// Function to show long label info in the sidebar
+function showLongLabelInfo(edgeData, references) {
+    const infoDiv = document.getElementById("info");
+    let html = `
+        <h2>Reduction Details</h2>
+        <p>${edgeData.longlabel}</p>
+    `;
+    
+    infoDiv.innerHTML = html;
+    
+    if (window.MathJax && MathJax.typeset) {
+        MathJax.typeset();
+    }
+}
+
 async function main() {
     try {
         console.log("🚀 Starting application...");
@@ -91,11 +271,6 @@ async function main() {
         svg.call(zoom);
 
         const defs = svg.append("defs");
-        
-        // Create arrow markers for different styles
-        createArrowMarker(defs, "arrowhead-normal", "#000000", 10);
-        createArrowMarker(defs, "arrowhead-thick", "#000000", 14);
-        createArrowMarker(defs, "arrowhead-dashed", "#000000", 10);
 
         const nodes = problems.map(p => ({
             id: p.id,
@@ -111,10 +286,24 @@ async function main() {
             target: r.to,
             data: r,
             label: r.label || null,
+            longlabel: r.longlabel || null,
             style: r.style || "normal",
             color: r.color || "#000000",
             references: r.references || []
         }));
+
+        // Pre-create arrow markers for all unique colors
+        const uniqueColors = new Set(edges.map(e => e.color));
+        uniqueColors.forEach(color => {
+            const markerId = "arrowhead-" + color.replace('#', '');
+            createArrowMarker(defs, markerId, color, 10);
+            // Also create thick version
+            createArrowMarker(defs, markerId + "-thick", color, 14);
+        });
+        // Also create default markers
+        createArrowMarker(defs, "arrowhead-normal", "#000000", 10);
+        createArrowMarker(defs, "arrowhead-thick", "#000000", 14);
+        createArrowMarker(defs, "arrowhead-dashed", "#000000", 10);
 
         const elk = new ELK();
         const layout = await elk.layout({
@@ -212,56 +401,113 @@ async function main() {
                 pathPoints = `M ${startPoint.x} ${startPoint.y} Q ${cpX} ${cpY} ${endPoint.x} ${endPoint.y}`;
             }
 
+            // Determine if this edge has a longlabel
+            const hasLongLabel = edge.longlabel && edge.longlabel.trim() !== '';
+            const isDashed = hasLongLabel || edge.style === "dashed";
+            const isThick = edge.style === "thick";
+
+            // Create unique marker ID for this color
+            const colorKey = edge.color.replace('#', '');
+            let markerId = "arrowhead-" + colorKey + (isThick ? "-thick" : "");
+            
+            // Fallback if marker doesn't exist
+            if (!document.getElementById(markerId)) {
+                if (isDashed) {
+                    markerId = "arrowhead-dashed";
+                } else if (isThick) {
+                    markerId = "arrowhead-thick";
+                } else {
+                    markerId = "arrowhead-normal";
+                }
+            }
+
             let path = g.append("path")
                 .attr("class", "edge")
                 .attr("d", pathPoints)
                 .attr("fill", "none")
-                .attr("stroke", edge.color)
-                .attr("stroke-width", edge.style === "thick" ? 4 : 2.5)
+                .attr("stroke", edge.color)  // This makes the whole arrow colored
+                .style("stroke-width", isThick ? 4 : 1.25)
                 .attr("data-edge-id", edge.id)
                 .attr("data-source", edge.source)
                 .attr("data-target", edge.target)
+                .attr("data-style", edge.style)
                 .style("pointer-events", "none")
-                .style("transition", "opacity 0.2s ease");
+                .style("transition", "all 0.2s ease")
+                .style("cursor", hasLongLabel ? "pointer" : "default");
 
-            let markerId = "arrowhead-normal";
-            
-            if (edge.style === "dashed") {
+            if (isDashed) {
                 path.attr("stroke-dasharray", "8,5");
-                markerId = "arrowhead-dashed";
-            } else if (edge.style === "thick") {
-                path.attr("stroke-width", 4);
-                markerId = "arrowhead-thick";
             }
 
             path.attr("marker-end", `url(#${markerId})`);
 
+            // Add hover overlay on the edge
+            const hoverOverlay = g.append("path")
+                .attr("d", pathPoints)
+                .attr("fill", "none")
+                .attr("stroke", "transparent")
+                .attr("stroke-width", 20)
+                .attr("data-source", edge.source)
+                .attr("data-target", edge.target)
+                .style("pointer-events", "all")
+                .style("cursor", hasLongLabel ? "pointer" : "default");
+
+            // Hover effect for the edge
+            hoverOverlay.on("mouseenter", function() {
+                const sourceId = this.getAttribute("data-source");
+                const targetId = this.getAttribute("data-target");
+                highlightEdgeMatch(g, sourceId, targetId);
+            })
+            .on("mouseleave", function() {
+                // Check if search is active
+                const searchInput = document.getElementById("search");
+                const searchValue = searchInput.value.trim();
+                if (searchValue === '') {
+                    resetHighlight(g);
+                } else {
+                    reapplySearch(g, searchInput);
+                }
+            });
+
+            // Click handler on the edge for longlabel
+            if (hasLongLabel) {
+                hoverOverlay.on("click", function() {
+                    const sourceId = this.getAttribute("data-source");
+                    const targetId = this.getAttribute("data-target");
+                    const edgeData = edges.find(e => e.source === sourceId && e.target === targetId);
+                    if (edgeData && edgeData.longlabel) {
+                        showLongLabelInfo(edgeData, references);
+                    }
+                });
+            }
+
             const hasLabel = edge.label && edge.label.trim() !== '';
             const hasRefs = edge.references && edge.references.length > 0;
             
+            // Create the main label
             if (hasLabel || hasRefs) {
                 const labelGroup = g.append("g")
                     .attr("class", "edge-label-group")
                     .attr("data-edge-id", edge.id)
                     .attr("data-source", edge.source)
                     .attr("data-target", edge.target)
-                    .style("cursor", hasRefs ? "pointer" : "default")
+                    .style("cursor", hasLongLabel ? "pointer" : (hasRefs ? "pointer" : "default"))
                     .style("pointer-events", "all")
                     .style("transition", "opacity 0.2s ease");
 
                 let labelHTML = '';
                 
                 if (hasLabel) {
-                    labelHTML += `<div style="font-size: 14px; font-weight: bold; color: ${edge.color}; text-align: center; line-height: 1.4;">${edge.label}</div>`;
+                    labelHTML += `<div style="font-size: 13px; font-weight: bold; color: #000000; text-align: center; line-height: 1.3;">${edge.label}</div>`;
                 }
                 
                 if (hasRefs) {
                     const refLinks = edge.references.map((r) => {
                         const ref = references.find(x => x.id === r);
                         if (ref) {
-                            return `<a href="${ref.url}" target="_blank" style="color: ${edge.color}; text-decoration: none; border-bottom: 1px dotted ${edge.color}; font-size: 12px; cursor: pointer; padding: 0 2px;">${ref.short}</a>`;
+                            return `<a href="${ref.url}" target="_blank" style="color: #000000; text-decoration: none; border-bottom: 1px dotted #000000; font-size: 11px; cursor: pointer; padding: 0 2px;">${ref.short}</a>`;
                         }
-                        return `<span style="font-size: 12px; color: ${edge.color};">${r}</span>`;
+                        return `<span style="font-size: 11px; color: #000000;">${r}</span>`;
                     });
                     
                     const refsHTML = refLinks.reduce((acc, link, index) => {
@@ -269,19 +515,23 @@ async function main() {
                         return `${acc}, ${link}`;
                     }, '');
                     
-                    labelHTML += `<div style="font-size: 12px; color: ${edge.color}; text-align: center; margin-top: ${hasLabel ? '2px' : '0'}; line-height: 1.4;">${refsHTML}</div>`;
+                    labelHTML += `<div style="font-size: 11px; color: #000000; text-align: center; margin-top: ${hasLabel ? '1px' : '0'}; line-height: 1.3;">${refsHTML}</div>`;
                 }
 
-                const tempDiv = document.createElement('div');
-                tempDiv.style.cssText = 'position: absolute; visibility: hidden; font-family: serif; font-size: 14px; white-space: nowrap;';
-                const cleanText = (hasLabel ? edge.label.replace(/\$[^$]*\$/g, 'M') : '') + (hasRefs ? ' ' + edge.references.map(r => r).join(', ') : '');
-                tempDiv.textContent = cleanText || ' ';
-                document.body.appendChild(tempDiv);
-                const textWidth = Math.max(tempDiv.offsetWidth + 40, 80);
-                const textHeight = (hasLabel && hasRefs) ? 60 : 40;
-                document.body.removeChild(tempDiv);
+                // Smaller label size calculation
+                let estimatedWidth = 60;
+                if (hasLabel) {
+                    const cleanLabel = edge.label.replace(/\$[^$]*\$/g, 'M').replace(/\\[a-zA-Z]+/g, 'M');
+                    estimatedWidth += cleanLabel.length * 7;
+                }
+                if (hasRefs) {
+                    const refText = edge.references.join(', ');
+                    estimatedWidth += refText.length * 5;
+                }
+                const textWidth = Math.max(estimatedWidth + 30, 80);
+                const textHeight = (hasLabel && hasRefs) ? 48 : 32;
 
-                const labelOffset = isUpward ? -20 : 20;
+                const labelOffset = isUpward ? -18 : 18;
                 const labelX = midX;
                 const labelY = midY + labelOffset;
 
@@ -290,20 +540,20 @@ async function main() {
                     .attr("y", labelY - textHeight/2)
                     .attr("width", textWidth)
                     .attr("height", textHeight)
-                    .attr("rx", 6)
-                    .attr("ry", 6)
+                    .attr("rx", 4)
+                    .attr("ry", 4)
                     .attr("fill", "white")
                     .attr("stroke", "#ddd")
                     .attr("stroke-width", 1)
-                    .style("filter", "drop-shadow(0 1px 3px rgba(0,0,0,0.1))")
+                    .style("filter", "drop-shadow(0 1px 2px rgba(0,0,0,0.08))")
                     .style("pointer-events", "none")
                     .style("transition", "all 0.2s ease");
 
                 const labelContainer = labelGroup.append("foreignObject")
-                    .attr("x", labelX - textWidth/2 + 8)
-                    .attr("y", labelY - textHeight/2 + 4)
-                    .attr("width", textWidth - 16)
-                    .attr("height", textHeight - 8)
+                    .attr("x", labelX - textWidth/2 + 6)
+                    .attr("y", labelY - textHeight/2 + 3)
+                    .attr("width", textWidth - 12)
+                    .attr("height", textHeight - 6)
                     .style("pointer-events", "none");
 
                 const labelDiv = labelContainer.append("xhtml:div")
@@ -318,45 +568,39 @@ async function main() {
                     .style("text-align", "center")
                     .html(labelHTML);
 
+                // Click handler on label for longlabel
+                if (hasLongLabel) {
+                    labelGroup.on("click", function() {
+                        const sourceId = this.getAttribute("data-source");
+                        const targetId = this.getAttribute("data-target");
+                        const edgeData = edges.find(e => e.source === sourceId && e.target === targetId);
+                        if (edgeData && edgeData.longlabel) {
+                            showLongLabelInfo(edgeData, references);
+                        }
+                    });
+                }
+
+                // Label hover for highlighting
                 labelGroup.on("mouseenter", function() {
                     const sourceId = this.getAttribute("data-source");
                     const targetId = this.getAttribute("data-target");
+                    highlightEdgeMatch(g, sourceId, targetId);
                     
-                    g.selectAll(".edge")
-                        .style("opacity", function() {
-                            const edgeSource = this.getAttribute("data-source");
-                            const edgeTarget = this.getAttribute("data-target");
-                            return (edgeSource === sourceId && edgeTarget === targetId) ? 1 : 0.1;
-                        });
-                    
-                    g.selectAll(".node")
-                        .style("opacity", function() {
-                            const nodeId = this.getAttribute("data-id");
-                            return (nodeId === sourceId || nodeId === targetId) ? 1 : 0.1;
-                        });
-                    
-                    g.selectAll(".edge-label-group")
-                        .style("opacity", function() {
-                            const thisSource = this.getAttribute("data-source");
-                            const thisTarget = this.getAttribute("data-target");
-                            return (thisSource === sourceId && thisTarget === targetId) ? 1 : 0.1;
-                        });
-                    
-                    this.parentNode.appendChild(this);
-                    
-                    bgRect.style("filter", "drop-shadow(0 2px 8px rgba(0,0,0,0.3))");
+                    bgRect.style("filter", "drop-shadow(0 2px 6px rgba(0,0,0,0.2))");
                     bgRect.style("stroke", "#000");
-                    bgRect.style("stroke-width", 2);
+                    bgRect.style("stroke-width", 1.5);
                 })
                 .on("mouseleave", function() {
-                    g.selectAll(".edge")
-                        .style("opacity", 1);
-                    g.selectAll(".node")
-                        .style("opacity", 1);
-                    g.selectAll(".edge-label-group")
-                        .style("opacity", 1);
+                    // Check if search is active
+                    const searchInput = document.getElementById("search");
+                    const searchValue = searchInput.value.trim();
+                    if (searchValue === '') {
+                        resetHighlight(g);
+                    } else {
+                        reapplySearch(g, searchInput);
+                    }
                     
-                    bgRect.style("filter", "drop-shadow(0 1px 3px rgba(0,0,0,0.1))");
+                    bgRect.style("filter", "drop-shadow(0 1px 2px rgba(0,0,0,0.08))");
                     bgRect.style("stroke", "#ddd");
                     bgRect.style("stroke-width", 1);
                 });
@@ -369,11 +613,11 @@ async function main() {
                         })
                         .on("mouseenter", function() {
                             d3.select(this)
-                                .style("border-bottom", "2px solid " + edge.color);
+                                .style("border-bottom", "2px solid #000000");
                         })
                         .on("mouseleave", function() {
                             d3.select(this)
-                                .style("border-bottom", "1px dotted " + edge.color);
+                                .style("border-bottom", "1px dotted #000000");
                         });
 
                     labelGroup.on("click", function(event) {
@@ -438,66 +682,21 @@ async function main() {
             .attr("class", "nodeContent")
             .html(d => d.label);
 
+        // Node hover - highlights ALL connected edges (full neighborhood)
         node.on("mouseenter", function() {
             const nodeId = this.getAttribute("data-id");
-            
-            g.selectAll(".edge")
-                .style("opacity", function() {
-                    const edgeSource = this.getAttribute("data-source");
-                    const edgeTarget = this.getAttribute("data-target");
-                    return (edgeSource === nodeId || edgeTarget === nodeId) ? 1 : 0.1;
-                });
-            
-            const connectedNodes = new Set();
-            const connectedEdges = new Set();
-            
-            g.selectAll(".edge").each(function() {
-                const edgeSource = this.getAttribute("data-source");
-                const edgeTarget = this.getAttribute("data-target");
-                if (edgeSource === nodeId || edgeTarget === nodeId) {
-                    connectedNodes.add(edgeSource);
-                    connectedNodes.add(edgeTarget);
-                    connectedEdges.add(edgeSource + "-" + edgeTarget);
-                }
-            });
-            
-            g.selectAll(".node")
-                .style("opacity", function() {
-                    const thisNodeId = this.getAttribute("data-id");
-                    return connectedNodes.has(thisNodeId) ? 1 : 0.1;
-                });
-            
-            g.selectAll(".edge-label-group")
-                .style("opacity", function() {
-                    const thisSource = this.getAttribute("data-source");
-                    const thisTarget = this.getAttribute("data-target");
-                    const edgeId = thisSource + "-" + thisTarget;
-                    return connectedEdges.has(edgeId) ? 1 : 0.1;
-                });
-            
-            g.selectAll(".node").each(function() {
-                const thisNodeId = this.getAttribute("data-id");
-                if (connectedNodes.has(thisNodeId)) {
-                    this.parentNode.appendChild(this);
-                }
-            });
-            
-            g.selectAll(".edge-label-group").each(function() {
-                const thisSource = this.getAttribute("data-source");
-                const thisTarget = this.getAttribute("data-target");
-                const edgeId = thisSource + "-" + thisTarget;
-                if (connectedEdges.has(edgeId)) {
-                    this.parentNode.appendChild(this);
-                }
-            });
+            const matchSet = new Set([nodeId]);
+            highlightNodeMatches(g, matchSet);
         })
         .on("mouseleave", function() {
-            g.selectAll(".edge")
-                .style("opacity", 1);
-            g.selectAll(".node")
-                .style("opacity", 1);
-            g.selectAll(".edge-label-group")
-                .style("opacity", 1);
+            // Check if search is active
+            const searchInput = document.getElementById("search");
+            const searchValue = searchInput.value.trim();
+            if (searchValue === '') {
+                resetHighlight(g);
+            } else {
+                reapplySearch(g, searchInput);
+            }
         });
 
         node.on("click", (event, d) => {
@@ -537,19 +736,28 @@ async function main() {
             renderMathJax();
         });
 
+        // SEARCH - ONLY shows matching nodes and edges BETWEEN matching nodes
         const search = document.getElementById("search");
         search.addEventListener("input", () => {
-            const q = search.value.toLowerCase().trim();
+            const q = search.value.trim();
             
-            node.style("opacity", d => {
-                if (!q) return 1;
-                const shortMatch = (d.data.shortname || "").toLowerCase().includes(q);
-                const fullMatch = (d.data.fullname || "").toLowerCase().includes(q);
-                const nameMatch = (d.data.name || "").toLowerCase().includes(q);
-                const keywordMatch = d.keywords.some(k => k.toLowerCase().includes(q));
-                const descMatch = (d.data.description || "").toLowerCase().includes(q);
-                return (shortMatch || fullMatch || nameMatch || keywordMatch || descMatch) ? 1 : 0.15;
+            if (q === '') {
+                resetHighlight(g);
+                return;
+            }
+            
+            // Split by commas and trim
+            const keywords = q.split(',').map(k => k.trim()).filter(k => k !== '');
+            
+            const matchingIds = new Set();
+            g.selectAll(".node").each(function() {
+                const d = d3.select(this).data()[0];
+                if (d && nodeMatchesSearch(d, keywords)) {
+                    matchingIds.add(d.id);
+                }
             });
+            
+            highlightSearchMatches(g, matchingIds);
         });
 
         // Initial MathJax rendering

@@ -1,5 +1,5 @@
 
-- id: Wes22
+- id: Wes22a
   short: "[Wes22a]"
   title: "Orientations and the supersingular endomorphism ring problem"
   url: "https://eprint.iacr.org/2021/1583"
@@ -9,10 +9,15 @@
   title: "The supersingular isogeny path and endomorphism ring problems are equivalent"
   url: "https://eprint.iacr.org/2021/919"
   
-- id: HW26
-  short: "[HW26]"
+- id: HW25a
+  short: "[HW25a]"
   title: "Unconditional foundations for supersingular isogeny-based cryptography"
   url: "https://eprint.iacr.org/2025/271"
+  
+- id: HW25b
+  short: "[HW25b]"
+  title: "The supersingular endomorphism ring problem given one endomorphism"
+  url: "The supersingular endomorphism ring problem given one endomorphism"
   
 - id: PW24
   short: "[PW24]"
@@ -28,3 +33,8 @@
   short: "[KM25]"
   title: 'The computational refined Humbert invariant problem is equivalent to the computational isogeny problem'
   url: "https://eprint.iacr.org/2025/1295"
+  
+- id: EL24
+  short: "[EL24]"
+  title: "Computing Orientations from the Endomorphism Ring of Supersingular Curves and Applications"
+  url: "https://eprint.iacr.org/2024/146"
