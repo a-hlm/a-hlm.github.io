@@ -11,22 +11,35 @@
     <script>
         MathJax = {
             tex: {
-                inlineMath: [['$', '$']]
+                inlineMath: [
+                    ["$", "$"]
+                ],
+                packages: ['base', 'ams', 'textmacros']
+            },
+            loader: {
+                load: ['[tex]/textmacros']
             }
         };
     </script>
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js">
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
 </head>
 
 <body>
     <div id="toolbar">
-        <input id="search" placeholder="Search problems or keywords separated by comma...">
+        <input id="search" placeholder="Search problem or keyword...">
+        <div id="conditions-menu" style="margin-top: 10px; background: white; padding: 10px; border-radius: 8px; border: 1px solid #ccc; min-width: 200px;">
+            <h3 style="margin: 0 0 8px 0; font-size: 14px;">Conditions</h3>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
     </div>
 
     <div id="sidebar">
+        <h2>Problem information</h2>
         <div id="info">
-            Select a node or a dashed arrow for details.
+            Select a node
         </div>
     </div>
 

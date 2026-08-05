@@ -46,8 +46,9 @@
 - from: lIsogenyPath
   to: MaxOrder
   label: "(GRH)"
+  conditions: ["GRH"]
   references:
-    - Wes21
+    - Wes22b
     - KLPT14
 	
 - from: Isogeny
@@ -68,12 +69,14 @@
 - from: lIsogenyPath
   to: RHIquintic
   label: "(GRH)"
+  conditions: ["GRH"]
   references:
     - KM25
     
 - from: RHIquintic
   to: lIsogenyPath
   label: "(GRH)"
+  conditions: ["GRH"]
   references:
     - KM25
     
@@ -82,22 +85,28 @@
 - from: EndRingO
   to: EndRing
   
+- from: OEndRing
+  to: EndRingO
+  
 - from: EndRing
   to: EndRingO
+  conditions: ["SSOPequalSS"]
   longlabel: 'when $\tilde{\operatorname{SS}}_\mathfrak{O}(p) = \operatorname{SS}_\mathfrak{O}(p)$'
     
-- from: EndRingO
-  to: OEndRingstar
+- from: OEndRingstar
+  to: EndRingO
   
 - from: EndRingO
   to: OEndRingstar
+  conditions: ["discOOp43"]
   longlabel: 'when $\operatorname{disc}(\mathfrak{O}) = O(p^{4/3})$'
   references:
     - EL24
     
 - from: OEndRingstar
   to: OUber
-  label: '(GRH)'
+  label: "(GRH)"
+  conditions: ["GRH"]
   references:
     - Wes22a
     
@@ -108,15 +117,16 @@
     
 - from: OVect
   to: OUber
-  label: '(GRH)'
+  label: "(GRH)"
+  conditions: ["GRH"]
   references:
     - Wes22a
   
 - from: OVect
   to: OPara
-  label: '(GRH)'
-  style: 'thick'
-  color: '#00CC66'
+  label: "(GRH)"
+  style: "thick"
+  conditions: ["quantum"]
   references:
     - Wes22a
     
@@ -125,7 +135,8 @@
   
 - from: OEndRing
   to: OVect
-  label: '(GRH)'
+  label: "(GRH)"
+  conditions: ["GRH"]
   references:
     - Wes22a
     
@@ -136,7 +147,8 @@
     
 - from: OEndRing
   to: alphaEndRing
-  longlabel: 'given factorization of $\operatorname{disc}(\mathfrak{O})$'
+  conditions: ["factorisation"]
+  longlabel: 'when the factorisation of $\operatorname{disc}(\mathfrak{O})$ is known.'
   references:
     - HW25b
     
@@ -145,8 +157,8 @@
   
 - from: OEndRing
   to: OVect
-  label: '(GRH)'
-  longlabel: 'given factorization of $\operatorname{disc}(\mathfrak{O})$'
+  label: "(GRH)"
+  conditions: ["GRH", "factorisation"]
+  longlabel: 'when the factorisation of $\operatorname{disc}(\mathfrak{O})$ is known'
   references:
     - Wes22a
-
