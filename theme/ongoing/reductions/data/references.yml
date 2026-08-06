@@ -38,3 +38,35 @@
   short: "[EL24]"
   title: "Computing Orientations from the Endomorphism Ring of Supersingular Curves and Applications"
   url: "https://eprint.iacr.org/2024/146"
+  
+# Dim 2
+
+- id: KS26b
+  short: "[KS26b]"
+  title: "Splittings and Endomorphism Rings"
+  url: "https://eprint.iacr.org/2026/1198"
+  
+- id: KS26a
+  short: "[KS26a]"
+  title: "Endomorphisms via splittings"
+  url: "https://eprint.iacr.org/2026/215"
+  
+- id: CDKLPT25
+  short: "[CDKLPT25]"
+  title: "KLPT²: Algebraic Pathfinding in Dimension Two and Applications"
+  url: "https://eprint.iacr.org/2025/372"
+  
+- id: PRS26
+  short: "[PRS26]"
+  title: "On the conversion of module representations for higher dimensional supersingular isogenies"
+  url: "https://eprint.iacr.org/2026/276"
+  
+- id: M26
+  short: "[M26]"
+  title: "Equivalent computational problems for superspecial abelian surfaces"
+  url: "https://eprint.iacr.org/2026/120"
+  
+- id: MGSS26
+  short: "[MGSS26]"
+  title: "Computing Isomorphisms between Products of Supersingular Elliptic Curves"
+  url: "https://eprint.iacr.org/2025/136"

@@ -75,7 +75,8 @@ let conditionsState = {
     GRH: true,
     discOOp43: true,
     SSOPequalSS: true,
-    factorisation: true,
+    KLPT2: true,
+    factorisationO: true,
     quantum: true
 };
 
@@ -235,9 +236,9 @@ function applyHighlight(g, connectedNodes, connectedEdges) {
             const edge = highlightState.edges.find(e => e.source === edgeSource && e.target === edgeTarget);
             const isActive = edge ? isEdgeActive(edge) : true;
             if (isHighlighted) {
-                return isActive ? 1 : 0.4;
+                return isActive ? 1 : 0.01;
             }
-            return isActive ? 0.05 : 0.02;
+            return isActive ? 0.05 : 0.01;
         })
         .style("stroke-width", function() {
             const edgeSource = this.getAttribute("data-source");
@@ -249,6 +250,18 @@ function applyHighlight(g, connectedNodes, connectedEdges) {
                 return style === "thick" ? 4 : 1.25;
             }
             return style === "thick" ? 4 : 1.25;
+        })
+        .style("pointer-events", function() {
+            const edgeSource = this.getAttribute("data-source");
+            const edgeTarget = this.getAttribute("data-target");
+            const edgeId = edgeSource + "-" + edgeTarget;
+            const isHighlighted = connectedEdges.has(edgeId);
+            const edge = highlightState.edges.find(e => e.source === edgeSource && e.target === edgeTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            if (isHighlighted && isActive) {
+                return "all";
+            }
+            return "none";
         });
 
     g.selectAll(".node")
@@ -266,9 +279,21 @@ function applyHighlight(g, connectedNodes, connectedEdges) {
             const edge = highlightState.edges.find(e => e.source === thisSource && e.target === thisTarget);
             const isActive = edge ? isEdgeActive(edge) : true;
             if (isHighlighted) {
-                return isActive ? 1 : 0.4;
+                return isActive ? 1 : 0.01;
             }
-            return isActive ? 0.05 : 0.02;
+            return isActive ? 0.05 : 0.01;
+        })
+        .style("pointer-events", function() {
+            const thisSource = this.getAttribute("data-source");
+            const thisTarget = this.getAttribute("data-target");
+            const edgeId = thisSource + "-" + thisTarget;
+            const isHighlighted = connectedEdges.has(edgeId);
+            const edge = highlightState.edges.find(e => e.source === thisSource && e.target === thisTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            if (isHighlighted && isActive) {
+                return "all";
+            }
+            return "none";
         });
 
     g.selectAll(".node").each(function() {
@@ -319,14 +344,40 @@ function resetHighlight(g) {
     });
     
     g.selectAll(".edge")
-        .style("opacity", 1)
+        .style("opacity", function() {
+            const edgeSource = this.getAttribute("data-source");
+            const edgeTarget = this.getAttribute("data-target");
+            const edge = highlightState.edges.find(e => e.source === edgeSource && e.target === edgeTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            return isActive ? 1 : 0.01;
+        })
         .style("stroke-width", function() {
             const style = this.getAttribute("data-style") || "normal";
             return style === "thick" ? 4 : 1.25;
+        })
+        .style("pointer-events", function() {
+            const edgeSource = this.getAttribute("data-source");
+            const edgeTarget = this.getAttribute("data-target");
+            const edge = highlightState.edges.find(e => e.source === edgeSource && e.target === edgeTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            return isActive ? "all" : "none";
         });
     
     g.selectAll(".edge-label-group")
-        .style("opacity", 1);
+        .style("opacity", function() {
+            const thisSource = this.getAttribute("data-source");
+            const thisTarget = this.getAttribute("data-target");
+            const edge = highlightState.edges.find(e => e.source === thisSource && e.target === thisTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            return isActive ? 1 : 0.01;
+        })
+        .style("pointer-events", function() {
+            const thisSource = this.getAttribute("data-source");
+            const thisTarget = this.getAttribute("data-target");
+            const edge = highlightState.edges.find(e => e.source === thisSource && e.target === thisTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            return isActive ? "all" : "none";
+        });
 }
 
 // Function to reapply search if active
@@ -509,9 +560,19 @@ function highlightNodeClick(g, nodeId, edges) {
             const edge = highlightState.edges.find(e => e.source === edgeSource && e.target === edgeTarget);
             const isActive = edge ? isEdgeActive(edge) : true;
             if (allHighlighted.has(edgeSource) && allHighlighted.has(edgeTarget)) {
-                return isActive ? 1 : 0.4;
+                return isActive ? 1 : 0.01;
             }
-            return isActive ? 0.05 : 0.02;
+            return isActive ? 0.05 : 0.01;
+        })
+        .style("pointer-events", function() {
+            const edgeSource = d3.select(this).attr("data-source");
+            const edgeTarget = d3.select(this).attr("data-target");
+            const edge = highlightState.edges.find(e => e.source === edgeSource && e.target === edgeTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            if (allHighlighted.has(edgeSource) && allHighlighted.has(edgeTarget) && isActive) {
+                return "all";
+            }
+            return "none";
         });
 
     g.selectAll(".edge-label-group")
@@ -521,9 +582,19 @@ function highlightNodeClick(g, nodeId, edges) {
             const edge = highlightState.edges.find(e => e.source === thisSource && e.target === thisTarget);
             const isActive = edge ? isEdgeActive(edge) : true;
             if (allHighlighted.has(thisSource) && allHighlighted.has(thisTarget)) {
-                return isActive ? 1 : 0.4;
+                return isActive ? 1 : 0.01;
             }
-            return isActive ? 0.05 : 0.02;
+            return isActive ? 0.05 : 0.01;
+        })
+        .style("pointer-events", function() {
+            const thisSource = d3.select(this).attr("data-source");
+            const thisTarget = d3.select(this).attr("data-target");
+            const edge = highlightState.edges.find(e => e.source === thisSource && e.target === thisTarget);
+            const isActive = edge ? isEdgeActive(edge) : true;
+            if (allHighlighted.has(thisSource) && allHighlighted.has(thisTarget) && isActive) {
+                return "all";
+            }
+            return "none";
         });
 
     g.selectAll(".node").each(function() {
@@ -552,7 +623,6 @@ function updateConditions() {
         if (searchInput && searchInput.value.trim() !== '') {
             reapplySearch(g, searchInput);
         } else {
-            // Just reset to apply condition opacities
             resetHighlight(g);
         }
     }
@@ -560,7 +630,7 @@ function updateConditions() {
 
 // Function to rebuild the conditions menu
 function rebuildConditionsMenu(edges) {
-    const menuContainer = document.getElementById("conditions-menu");
+    const menuContainer = document.getElementById("conditions-content");
     if (!menuContainer) return;
     
     const allConditions = new Set();
@@ -570,8 +640,13 @@ function rebuildConditionsMenu(edges) {
         }
     });
     
-    let html = '<h3 style="margin: 0 0 8px 0; font-size: 14px;">Conditions</h3>';
-    html += '<div style="display: flex; flex-direction: column; gap: 5px;">';
+    // If no conditions, hide the toggle
+    if (allConditions.size === 0) {
+        document.getElementById("conditions-header").style.display = "none";
+        return;
+    }
+    
+    let html = '';
     
     if (allConditions.has('GRH')) {
         html += `
@@ -593,6 +668,16 @@ function rebuildConditionsMenu(edges) {
         `;
     }
     
+    if (allConditions.has('KLPT2')) {
+        html += `
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
+                <input type="checkbox" id="cond-KLPT2" ${conditionsState.KLPT2 !== false ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;">
+                <span>KLPT2</span>
+                <span style="font-size: 11px; color: #666; margin-left: 5px;">(assumptions)</span>
+            </label>
+        `;
+    }
+    
     if (allConditions.has('discOOp43')) {
         html += `
             <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
@@ -603,11 +688,11 @@ function rebuildConditionsMenu(edges) {
         `;
     }
     
-    if (allConditions.has('factorisation')) {
+    if (allConditions.has('factorisationO')) {
         html += `
             <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                <input type="checkbox" id="cond-factorisation" ${conditionsState.factorisation !== false ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;">
-                <span>Factorisation</span>
+                <input type="checkbox" id="cond-factorisationO" ${conditionsState.factorisationO !== false ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;">
+                <span>FactorisationO</span>
                 <span style="font-size: 11px; color: #666; margin-left: 5px;">(of disc(O))</span>
             </label>
         `;
@@ -623,19 +708,37 @@ function rebuildConditionsMenu(edges) {
         `;
     }
     
-    html += '</div>';
     menuContainer.innerHTML = html;
     
-    document.querySelectorAll('#conditions-menu input[type="checkbox"]').forEach(input => {
+    // Set up toggle functionality
+    const header = document.getElementById("conditions-header");
+    const content = document.getElementById("conditions-content");
+    const toggle = document.getElementById("conditions-toggle");
+    
+    // Start closed
+    content.style.display = "none";
+    toggle.textContent = "▶";
+    
+    header.addEventListener("click", function() {
+        if (content.style.display === "none") {
+            content.style.display = "flex";
+            toggle.textContent = "▼";
+        } else {
+            content.style.display = "none";
+            toggle.textContent = "▶";
+        }
+    });
+    
+    document.querySelectorAll('#conditions-content input[type="checkbox"]').forEach(input => {
         input.addEventListener('change', function() {
             const id = this.id.replace('cond-', '');
             
             if (id === 'quantum') {
-                const factorisationCheckbox = document.getElementById('cond-factorisation');
-                if (factorisationCheckbox) {
+                const factorisationOCheckbox = document.getElementById('cond-factorisationO');
+                if (factorisationOCheckbox) {
                     if (this.checked) {
-                        factorisationCheckbox.checked = true;
-                        conditionsState.factorisation = true;
+                        factorisationOCheckbox.checked = true;
+                        conditionsState.factorisationO = true;
                     }
                 }
             }
@@ -727,8 +830,8 @@ async function main() {
             layoutOptions: {
                 "elk.algorithm": "layered",
                 "elk.direction": "DOWN",
-                "elk.spacing.nodeNode": "200",
-                "elk.layered.spacing.nodeNodeBetweenLayers": "180",
+                "elk.spacing.nodeNode": "300",
+                "elk.layered.spacing.nodeNodeBetweenLayers": "250",
                 "elk.edgeRouting": "SPLINES"
             }
         });
@@ -786,11 +889,23 @@ async function main() {
                 return;
             }
 
+            // Check if edge is active for display
+            const isActive = isEdgeActive(edge);
+            const displayOpacity = isActive ? 1 : 0.01;
+
             const isUpward = targetPos.y < sourcePos.y;
             const startPoint = getEdgeStartPoint(sourcePos, targetPos, isUpward);
             const endPoint = getEdgeEndPoint(sourcePos, targetPos, isUpward);
             const midX = (startPoint.x + endPoint.x) / 2;
             const midY = (startPoint.y + endPoint.y) / 2;
+            
+            // Find all edges between this source and target pair (bidirectional)
+            const sameEdges = edges.filter(e => 
+                (e.source === edge.source && e.target === edge.target) ||
+                (e.source === edge.target && e.target === edge.source)
+            );
+            const edgeIndex = sameEdges.indexOf(edge);
+            const isReverse = edge.source !== edge.target && sameEdges.some(e => e.source === edge.target && e.target === edge.source);
             
             let pathPoints = `M ${startPoint.x} ${startPoint.y} L ${endPoint.x} ${endPoint.y}`;
             
@@ -799,7 +914,20 @@ async function main() {
             const length = Math.sqrt(dx*dx + dy*dy);
             
             if (length > 50) {
-                const midXOffset = isUpward ? -20 : 20;
+                let bendOffset = 40;
+                const totalEdges = sameEdges.length;
+                
+                if (totalEdges > 1) {
+                    const half = (totalEdges - 1) / 2;
+                    const spacing = 30;
+                    bendOffset = (edgeIndex - half) * spacing;
+                    
+                    if (isReverse) {
+                        bendOffset += 10;
+                    }
+                }
+                
+                const midXOffset = isUpward ? -bendOffset : bendOffset;
                 const cpX = midX + midXOffset;
                 const cpY = midY;
                 pathPoints = `M ${startPoint.x} ${startPoint.y} Q ${cpX} ${cpY} ${endPoint.x} ${endPoint.y}`;
@@ -828,14 +956,49 @@ async function main() {
                 .attr("fill", "none")
                 .attr("stroke", edge.color)
                 .style("stroke-width", isThick ? 4 : 1.25)
+                .style("opacity", displayOpacity)
+                .style("pointer-events", isActive ? "all" : "none")
                 .attr("data-edge-id", edge.id)
                 .attr("data-source", edge.source)
                 .attr("data-target", edge.target)
                 .attr("data-style", edge.style)
-                .style("pointer-events", "all")
                 .style("transition", "all 0.2s ease")
-                .style("cursor", "pointer")
-                .on("click", function(event) {
+                .style("cursor", isActive ? "pointer" : "default");
+
+            if (isDashed) {
+                path.attr("stroke-dasharray", "8,5");
+            }
+
+            path.attr("marker-end", `url(#${markerId})`);
+
+            // Only create hover/click overlays if edge is active
+            if (isActive) {
+                const hoverOverlay = g.append("path")
+                    .attr("d", pathPoints)
+                    .attr("fill", "none")
+                    .attr("stroke", "transparent")
+                    .attr("stroke-width", 20)
+                    .attr("data-source", edge.source)
+                    .attr("data-target", edge.target)
+                    .style("pointer-events", "all")
+                    .style("cursor", "pointer");
+
+                hoverOverlay.on("mouseenter", function() {
+                    const sourceId = this.getAttribute("data-source");
+                    const targetId = this.getAttribute("data-target");
+                    highlightEdgeMatch(g, sourceId, targetId);
+                })
+                .on("mouseleave", function() {
+                    const searchInput = document.getElementById("search");
+                    const searchValue = searchInput.value.trim();
+                    if (searchValue === '' && highlightState.mode !== 'node_click') {
+                        resetHighlight(g);
+                    } else if (searchValue !== '') {
+                        reapplySearch(g, searchInput);
+                    }
+                });
+
+                hoverOverlay.on("click", function(event) {
                     event.stopPropagation();
                     const sourceId = this.getAttribute("data-source");
                     const targetId = this.getAttribute("data-target");
@@ -844,47 +1007,7 @@ async function main() {
                         showReductionInfo(edgeData, nodes, references);
                     }
                 });
-
-            if (isDashed) {
-                path.attr("stroke-dasharray", "8,5");
             }
-
-            path.attr("marker-end", `url(#${markerId})`);
-
-            const hoverOverlay = g.append("path")
-                .attr("d", pathPoints)
-                .attr("fill", "none")
-                .attr("stroke", "transparent")
-                .attr("stroke-width", 20)
-                .attr("data-source", edge.source)
-                .attr("data-target", edge.target)
-                .style("pointer-events", "all")
-                .style("cursor", "pointer");
-
-            hoverOverlay.on("mouseenter", function() {
-                const sourceId = this.getAttribute("data-source");
-                const targetId = this.getAttribute("data-target");
-                highlightEdgeMatch(g, sourceId, targetId);
-            })
-            .on("mouseleave", function() {
-                const searchInput = document.getElementById("search");
-                const searchValue = searchInput.value.trim();
-                if (searchValue === '' && highlightState.mode !== 'node_click') {
-                    resetHighlight(g);
-                } else if (searchValue !== '') {
-                    reapplySearch(g, searchInput);
-                }
-            });
-
-            hoverOverlay.on("click", function(event) {
-                event.stopPropagation();
-                const sourceId = this.getAttribute("data-source");
-                const targetId = this.getAttribute("data-target");
-                const edgeData = edges.find(e => e.source === sourceId && e.target === targetId);
-                if (edgeData) {
-                    showReductionInfo(edgeData, nodes, references);
-                }
-            });
 
             const hasLabel = edge.label && edge.label.trim() !== '';
             const hasRefs = edge.references && edge.references.length > 0;
@@ -895,9 +1018,10 @@ async function main() {
                     .attr("data-edge-id", edge.id)
                     .attr("data-source", edge.source)
                     .attr("data-target", edge.target)
-                    .style("cursor", "pointer")
-                    .style("pointer-events", "all")
-                    .style("transition", "opacity 0.2s ease");
+                    .style("cursor", isActive ? "pointer" : "default")
+                    .style("pointer-events", isActive ? "all" : "none")
+                    .style("transition", "opacity 0.2s ease")
+                    .style("opacity", displayOpacity);
 
                 let labelHTML = '';
                 
@@ -971,38 +1095,41 @@ async function main() {
                     .style("text-align", "center")
                     .html(labelHTML);
 
-                labelGroup.on("click", function(event) {
-                    event.stopPropagation();
-                    const sourceId = this.getAttribute("data-source");
-                    const targetId = this.getAttribute("data-target");
-                    const edgeData = edges.find(e => e.source === sourceId && e.target === targetId);
-                    if (edgeData) {
-                        showReductionInfo(edgeData, nodes, references);
-                    }
-                });
+                // Only add click handler if active
+                if (isActive) {
+                    labelGroup.on("click", function(event) {
+                        event.stopPropagation();
+                        const sourceId = this.getAttribute("data-source");
+                        const targetId = this.getAttribute("data-target");
+                        const edgeData = edges.find(e => e.source === sourceId && e.target === targetId);
+                        if (edgeData) {
+                            showReductionInfo(edgeData, nodes, references);
+                        }
+                    });
 
-                labelGroup.on("mouseenter", function() {
-                    const sourceId = this.getAttribute("data-source");
-                    const targetId = this.getAttribute("data-target");
-                    highlightEdgeMatch(g, sourceId, targetId);
-                    
-                    bgRect.style("filter", "drop-shadow(0 2px 6px rgba(0,0,0,0.2))");
-                    bgRect.style("stroke", "#000");
-                    bgRect.style("stroke-width", 1.5);
-                })
-                .on("mouseleave", function() {
-                    const searchInput = document.getElementById("search");
-                    const searchValue = searchInput.value.trim();
-                    if (searchValue === '' && highlightState.mode !== 'node_click') {
-                        resetHighlight(g);
-                    } else if (searchValue !== '') {
-                        reapplySearch(g, searchInput);
-                    }
-                    
-                    bgRect.style("filter", "drop-shadow(0 1px 2px rgba(0,0,0,0.08))");
-                    bgRect.style("stroke", "#ddd");
-                    bgRect.style("stroke-width", 1);
-                });
+                    labelGroup.on("mouseenter", function() {
+                        const sourceId = this.getAttribute("data-source");
+                        const targetId = this.getAttribute("data-target");
+                        highlightEdgeMatch(g, sourceId, targetId);
+                        
+                        bgRect.style("filter", "drop-shadow(0 2px 6px rgba(0,0,0,0.2))");
+                        bgRect.style("stroke", "#000");
+                        bgRect.style("stroke-width", 1.5);
+                    })
+                    .on("mouseleave", function() {
+                        const searchInput = document.getElementById("search");
+                        const searchValue = searchInput.value.trim();
+                        if (searchValue === '' && highlightState.mode !== 'node_click') {
+                            resetHighlight(g);
+                        } else if (searchValue !== '') {
+                            reapplySearch(g, searchInput);
+                        }
+                        
+                        bgRect.style("filter", "drop-shadow(0 1px 2px rgba(0,0,0,0.08))");
+                        bgRect.style("stroke", "#ddd");
+                        bgRect.style("stroke-width", 1);
+                    });
+                }
 
                 if (hasRefs) {
                     labelDiv.selectAll("a")
@@ -1094,7 +1221,6 @@ async function main() {
             let html = `
                 <h2>${displayName}</h2>
                 <p><b>Description:</b> ${nodeData.data.description || "No description"}</p>
-                <p><b>Family:</b> ${nodeData.data.family || "Unspecified"}</p>
                 <p><b>Keywords:</b> ${nodeData.keywords.length > 0 ? nodeData.keywords.join(", ") : "none"}</p>
                 <h3>References</h3>
                 <ul>
@@ -1118,7 +1244,8 @@ async function main() {
                 html += `<li>No references available</li>`;
             }
             
-            html += `</ul>`;
+            html += `</ul> 
+        Color coding: <span style="color:#2ECC71;">easier</span>, <span style="color:#E74C3C;">harder</span>, <span style="color:#9B59B6;">equivalent</span>`;
             
             document.getElementById("info").innerHTML = html;
             

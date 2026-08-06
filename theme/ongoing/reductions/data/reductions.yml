@@ -1,3 +1,11 @@
+# Conditions:
+# quantum
+# GRH
+# SSOPequalSS: 'when $\tilde{\operatorname{SS}}_\mathfrak{O}(p) = \operatorname{SS}
+# discOOp43: 'when $\operatorname{disc}(\mathfrak{O}) = O(p^{4/3})$'
+# factorisationO: 'when the factorisation of $\operatorname{disc}(\mathfrak{O})$ is known'
+# KLPT2: 'the assumptions of KLPT2'
+
 #Results from https://eprint.iacr.org/2023/1399
 
 - from: OneEnd
@@ -8,11 +16,18 @@
   style: "thick"
   references:
     - PW24
+    
+- from: EndRing
+  to: OneEnd
+  condition: ["quantum"]
+  references:
+    - 2025/379
 
 #Results from https://eprint.iacr.org/2025/271
 
 - from: OneEnd
   to: MaxOrder
+  style: "thick"
   references:
     - HW25a
     
@@ -61,6 +76,7 @@
     
 - from: HomModule
   to: Isogeny
+  style: "thick"
   references:
     - HW25a
     
@@ -126,11 +142,14 @@
   to: OPara
   label: "(GRH)"
   style: "thick"
-  conditions: ["quantum"]
+  conditions: ["quantum","GRH"]
   references:
     - Wes22a
     
 - from: OVect
+  to: EffOVect
+  
+- from: OPara
   to: EffOVect
   
 - from: OEndRing
@@ -147,7 +166,7 @@
     
 - from: OEndRing
   to: alphaEndRing
-  conditions: ["factorisation"]
+  conditions: ["factorisationO"]
   longlabel: 'when the factorisation of $\operatorname{disc}(\mathfrak{O})$ is known.'
   references:
     - HW25b
@@ -158,7 +177,65 @@
 - from: OEndRing
   to: OVect
   label: "(GRH)"
-  conditions: ["GRH", "factorisation"]
+  conditions: ["GRH", "factorisationO"]
   longlabel: 'when the factorisation of $\operatorname{disc}(\mathfrak{O})$ is known'
   references:
     - Wes22a
+    
+#Dim 2 KS26ab
+- from: OneEnd
+  to: Splitting
+  references:
+    - KS26b
+    - KS26a
+    
+- from: Isogeny
+  to: Splitting
+  references:
+    - KS26b
+    - KS26a
+    
+- from: Splitting
+  to: lSplitting
+  
+- from: GoodEndRing2
+  to: lSplitting
+  label: "(GRH)"
+  conditions: ["GRH", "KLPT2"]
+  references:
+    - KS26b
+    - KS26a
+  
+- from: lSplitting
+  to: GoodEndRing2
+  label: "(GRH)"
+  conditions: ["GRH", "KLPT2"]
+  references:
+    - KS26b
+    - KS26a
+   
+   
+#Dim 2 Montessinos
+    
+- from: GoodEndRing2
+  to: ExplicitIKO
+  references:
+    - M26
+    
+- from: ExplicitIKO
+  to: GoodEndRing2
+  label: "(GRH)"
+  conditions: ["GRH"]
+  references:
+    - M26
+    
+- from: ExplicitIsomorphism2
+  to: ExplicitIKO
+  conditions: ["KLPT2"]
+  references:
+    - M26
+    
+- from: EffEndRing2
+  to: ExplicitIsomorphism2
+  references:
+    - M26

@@ -29,17 +29,19 @@
     <div id="toolbar">
         <input id="search" placeholder="Search problem or keyword...">
         <div id="conditions-menu" style="margin-top: 10px; background: white; padding: 10px; border-radius: 8px; border: 1px solid #ccc; min-width: 200px;">
-            <h3 style="margin: 0 0 8px 0; font-size: 14px;">Conditions</h3>
-            <div style="display: flex; flex-direction: column; gap: 5px;">
+            <div id="conditions-header" style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none;">
+                <h3 style="margin: 0; font-size: 14px;">Conditions</h3>
+                <span id="conditions-toggle" style="font-size: 16px; font-weight: bold; transition: transform 0.3s ease;">▶</span>
+            </div>
+            <div id="conditions-content" style="display: none; flex-direction: column; gap: 5px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee;">
                 <!-- Populated dynamically -->
             </div>
         </div>
     </div>
 
     <div id="sidebar">
-        <h2>Problem information</h2>
         <div id="info">
-            Select a node
+            Select a problem or a reduction
         </div>
     </div>
 

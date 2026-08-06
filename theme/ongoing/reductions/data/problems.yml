@@ -4,7 +4,6 @@
   shortname: '<span style="font-variant: small-caps;">HomModule</span>'
   fullname: The Homomorphism Module Problem
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental", "dimension 1"]
   references:
     - Wes22b
@@ -13,7 +12,6 @@
   shortname: '<span style="font-variant: small-caps;">MaxOrder</span>'
   fullname: 'The Maximal Order Problem'
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental", "dimension 1"]
   references:
     - Wes22b
@@ -22,7 +20,6 @@
   shortname: '<span style="font-variant: small-caps;">OneEnd</span>'
   fullname: 'The One Endomorphism Problem'
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental"," dimension 1"]
   references:
     - Wes22b
@@ -31,7 +28,6 @@
   shortname: '<span style="font-variant: small-caps;">MOER</span>'
   fullname: 'The <span style="font-variant: small-caps;">MOER</span> Problem'
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental", "dimension 1"]
   references:
     - HW25a
@@ -40,7 +36,6 @@
   shortname: '<span style="font-variant: small-caps;">MaxOrder$_\mathcal{Q}$</span>'
   fullname: 'The <span style="font-variant: small-caps;">MaxOrder$_\mathcal{Q}$</span> Problem'
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental", "dimension 1"]
   references:
     - HW25a
@@ -49,7 +44,6 @@
   shortname: '<span style="font-variant: small-caps;">EndRing</span>'
   fullname: 'The Endomorphism Ring Problem'
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental", "dimension 1"]
   references:
     - Wes22b
@@ -58,7 +52,6 @@
   shortname: '<span style="font-variant: small-caps;">Isogeny</span>'
   fullname: 'The Isogeny Problem'
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental", "dimension 1"]
   references:
     - Wes22b
@@ -67,7 +60,6 @@
   shortname: '$\ell$-<span style="font-variant: small-caps;">IsogenyPath</span>'
   fullname: 'The $\ell$-Isogeny Path Problem'
   description: 'To do'
-  family: "Fundamental 1-dimensional problem"
   keywords: ["fundamental", "dimension 1", "isogeny graph"]
   references:
     - Wes22b
@@ -78,7 +70,6 @@
   shortname: '<span style="font-variant: small-caps;">RHI-Quintic</span>'
   fullname: "The Computational Quintic Refined Humbert Invariant Problem"
   description: 'To do'
-  family: "?"
   keywords: ["dimension 2"]
   references:
     - KM25
@@ -87,7 +78,6 @@
   shortname: '<span style="font-variant: small-caps;">RHI-Ternary</span>'
   fullname: "The Computational Ternary Refined Humbert Invariant Problem"
   description: 'To do'
-  family: "?"
   keywords: ["dimension 2"]
   references:
     - KM25
@@ -99,7 +89,6 @@
   shortname: '<span style="font-variant: small-caps;">EndRing$_{|\mathfrak{O}}$</span>'
   fullname: 'The <span style="font-variant: small-caps;">EndRing$_{|\mathfrak{O}}$</span> problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - Wes22a
@@ -108,7 +97,6 @@
   shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing</span>'
   fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing</span> Problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - Wes22a
@@ -118,7 +106,6 @@
   shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-Vectorisation</span>'
   fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-Vectorisation</span> Problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - Wes22a
@@ -127,7 +114,6 @@
   shortname: '<span style="font-variant: small-caps;">Effective $\mathfrak{O}$-Vectorisation</span>'
   fullname: 'The <span style="font-variant: small-caps;">Effective $\mathfrak{O}$-Vectorisation</span> Problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - Wes22a
@@ -136,7 +122,6 @@
   shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-Parallelisation</span>'
   fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-Parallelisation</span> Problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - Wes22a
@@ -145,7 +130,6 @@
   shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-Uber</span>'
   fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-Uber</span> Problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - Wes22a
@@ -154,7 +138,6 @@
   shortname: '<span style="font-variant: small-caps;">$\alpha$-EndRing</span>'
   fullname: 'The <span style="font-variant: small-caps;">$\alpha$-EndRing</span> Problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - HW25b
@@ -163,7 +146,65 @@
   shortname: '<span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing$^*$</span>'
   fullname: 'The <span style="font-variant: small-caps;">$\mathfrak{O}$-EndRing$^*$</span> Problem'
   description: "To do"
-  family: "?"
   keywords: ["dimension 1", "orientation"]
   references:
     - Wes22a
+    
+# Dim 2:
+- id: Splitting
+  shortname: '<span style="font-variant: small-caps;">Splitting</span>'
+  fullname: 'The <span style="font-variant: small-caps;">Splitting</span> Problem'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - KS26a
+    - KS26b
+    
+- id: lSplitting
+  shortname: '<span style="font-variant: small-caps;">$\ell$-Splitting</span>'
+  fullname: 'The <span style="font-variant: small-caps;">$\ell$-Splitting</span> Problem'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - KS26a
+    - KS26b
+    
+- id: EffEndRing2
+  shortname: '<span style="font-variant: small-caps;">Effective EndRing2 </span>'
+  fullname: 'The Effective Endomorphism Ring Problem in dimension 2'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - KS26a
+    - KS26b
+    - CDKLPT25
+    
+- id: GoodEndRing2
+  shortname: '<span style="font-variant: small-caps;">Good EndRing2 </span>'
+  fullname: 'The Good Endomorphism Ring Problem in dimension 2'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - KS26a
+    - KS26b
+    - CDKLPT25
+    
+- id: ExplicitIsomorphism2
+  shortname: '<span style="font-variant: small-caps;">Explicit Isomorphism2</span>'
+  fullname: 'The Explicit Isomorphism Problem in dimension 2'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - M26
+    - MGSS26
+    
+- id: ExplicitIKO
+  shortname: '<span style="font-variant: small-caps;">Explicit Isomorphism2</span>'
+  fullname: 'The Explicit Isomorphism Problem in dimension 2'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - CDKLPT25
+    - MGSS26
+
+# Add the case of product of elliptic curves
