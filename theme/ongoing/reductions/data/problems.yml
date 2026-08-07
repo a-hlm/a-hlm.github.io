@@ -15,6 +15,7 @@
   keywords: ["fundamental", "dimension 1"]
   references:
     - Wes22b
+    - K96
 
 - id: OneEnd
   shortname: '<span style="font-variant: small-caps;">OneEnd</span>'
