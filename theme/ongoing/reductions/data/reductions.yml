@@ -239,3 +239,61 @@
   to: ExplicitIsomorphism2
   references:
     - M26
+    
+- from: EffEndRing2PSEC
+  to: ExplicitIsomorphism2PSEC
+  references:
+    - M26
+    
+- from: ExplicitIsomorphism2PSEC
+  to: ExplicitIKOPSEC
+  label: "(GRH)"
+  conditions: ["GRH"]
+  references:
+    - GSS26
+    - M26
+    
+- from: ExplicitIKOPSEC
+  to: GoodEndRing2PSEC
+  label: "(GRH)"
+  conditions: ["GRH"]
+  references:
+    - M26
+    
+- from: GoodEndRing2PSEC
+  to: EffEndRing2PSEC
+  label: "(GRH)"
+  conditions: ["GRH"]
+  references:
+    - M26
+    
+- from: ExplicitIsomorphism2PSEC
+  to: EndRing
+  label: "(GRH)"
+  conditions: ["GRH"]
+  references:
+    - GSS26
+  
+# Trivial reductions:
+  
+- from: EndRing
+  to: EffEndRing2PSEC
+  
+- from: EffEndRing2PSEC
+  to: EffEndRing2
+  
+- from: EffEndRing2PSEC
+  to: GoodEndRing2PSEC
+  
+- from: GoodEndRing2PSEC
+  to: GoodEndRing2
+  
+- from: EffEndRing2
+  to: GoodEndRing2
+
+- from: ExplicitIKOPSEC
+  to: ExplicitIKO
+  
+- from: ExplicitIsomorphism2PSEC
+  to: ExplicitIsomorphism2
+  

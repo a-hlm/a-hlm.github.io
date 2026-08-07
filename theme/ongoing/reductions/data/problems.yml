@@ -200,12 +200,50 @@
     - MGSS26
     
 - id: ExplicitIKO
-  shortname: '<span style="font-variant: small-caps;">Explicit Isomorphism2</span>'
+  shortname: '<span style="font-variant: small-caps;">Explicit IKO</span>'
   fullname: 'The Explicit Isomorphism Problem in dimension 2'
   description: "To do"
   keywords: ["dimension 2"]
   references:
     - CDKLPT25
     - MGSS26
+    
+    
+- id: EffEndRing2PSEC
+  shortname: '<span style="font-variant: small-caps;">Effective EndRing2 <br> for Products of S.E.C</span>'
+  fullname: 'The Effective Endomorphism Ring Problem in dimension 2 for Products of Supersingular Elliptic Curve'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - KS26a
+    - KS26b
+    - CDKLPT25
+    
+- id: GoodEndRing2PSEC
+  shortname: '<span style="font-variant: small-caps;">Good EndRing2 <br> for Products of S.E.C</span>'
+  fullname: 'The Good Endomorphism Ring Problem in dimension 2 for Products of Supersingular Elliptic Curve'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - KS26a
+    - KS26b
+    - CDKLPT25
+    
+- id: ExplicitIsomorphism2PSEC
+  shortname: '<span style="font-variant: small-caps;">Explicit Isomorphism2 <br> for Products of S.E.C</span>'
+  fullname: 'The Explicit Isomorphism Problem in dimension 2 for Products of Supersingular Elliptic Curve'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - M26
+    - MGSS26
+    
+- id: ExplicitIKOPSEC
+  shortname: '<span style="font-variant: small-caps;">Explicit IKO <br> for Products of S.E.C</span>'
+  fullname: 'The Explicit Isomorphism Problem in dimension 2 for Products of Supersingular Elliptic Curve'
+  description: "To do"
+  keywords: ["dimension 2"]
+  references:
+    - CDKLPT25
+    - MGSS26
 
-# Add the case of product of elliptic curves

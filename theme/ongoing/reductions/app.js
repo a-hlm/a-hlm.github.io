@@ -74,11 +74,114 @@ let highlightState = {
 let conditionsState = {
     GRH: true,
     discOOp43: true,
-    SSOPequalSS: true,
+    SSOPequalSS: false,
     KLPT2: true,
     factorisationO: true,
     quantum: true
 };
+
+// ============================================
+// KEYWORD TO LEVEL MAPPING TABLE
+// Add new categories here with their level number
+// Higher level = lower on the graph (larger Y)
+// ============================================
+const KEYWORD_LEVELS = {
+    // Level 0: Top (dimension 2)
+    'dimension 2': 0,
+    
+    // Level 1: Middle (fundamental)
+    'fundamental': 1,
+    
+    // Level 2: Bottom (orientation)
+    'orientation': 2,
+    
+    // Add new categories here:
+    // 'new category': 3,
+    // 'another category': 4,
+};
+
+// Function to get the level of a node based on its keywords
+function getNodeLevel(node) {
+    const keywords = node.keywords || [];
+    // Find the highest priority keyword (lowest level number)
+    let minLevel = Infinity;
+    for (const kw of keywords) {
+        if (kw in KEYWORD_LEVELS) {
+            if (KEYWORD_LEVELS[kw] < minLevel) {
+                minLevel = KEYWORD_LEVELS[kw];
+            }
+        }
+    }
+    return minLevel === Infinity ? 999 : minLevel; // 'other' goes to bottom
+}
+
+// Function to group nodes by their level
+function groupNodesByLevel(positions, nodes, spacing = 300) {
+    // Group nodes by their level
+    const groups = {};
+    nodes.forEach(node => {
+        const level = getNodeLevel(node);
+        if (!groups[level]) groups[level] = [];
+        groups[level].push(node.id);
+    });
+    
+    // Sort levels
+    const sortedLevels = Object.keys(groups).map(Number).sort((a, b) => a - b);
+    
+    // Calculate current Y positions per group
+    const groupYPositions = {};
+    sortedLevels.forEach(level => {
+        const ids = groups[level];
+        let sumY = 0;
+        let count = 0;
+        ids.forEach(id => {
+            if (positions[id]) {
+                sumY += positions[id].y;
+                count++;
+            }
+        });
+        groupYPositions[level] = count > 0 ? sumY / count : 0;
+    });
+    
+    // Calculate offsets
+    let currentY = 0;
+    const groupOffsets = {};
+    sortedLevels.forEach(level => {
+        const ids = groups[level] || [];
+        let minY = Infinity;
+        let maxY = -Infinity;
+        ids.forEach(id => {
+            if (positions[id]) {
+                if (positions[id].y < minY) minY = positions[id].y;
+                if (positions[id].y > maxY) maxY = positions[id].y;
+            }
+        });
+        if (minY === Infinity) minY = 0;
+        if (maxY === -Infinity) maxY = 80;
+        const height = maxY - minY || 80;
+        groupOffsets[level] = currentY - minY;
+        currentY += height + spacing;
+    });
+    
+    // Apply offsets
+    const newPositions = {};
+    Object.keys(positions).forEach(id => {
+        // Find the node
+        let nodeLevel = 999;
+        nodes.forEach(node => {
+            if (node.id === id) {
+                nodeLevel = getNodeLevel(node);
+            }
+        });
+        const offset = groupOffsets[nodeLevel] || 0;
+        newPositions[id] = {
+            x: positions[id].x,
+            y: positions[id].y + offset
+        };
+    });
+    
+    return newPositions;
+}
 
 // Function to check if an edge is active under current conditions
 function isEdgeActive(edge) {
@@ -841,6 +944,13 @@ async function main() {
             positions[n.id] = n;
         });
 
+        // ============================================
+        // GROUP NODES BY KEYWORD LEVELS
+        // This uses the KEYWORD_LEVELS mapping defined at the top
+        // ============================================
+        const groupedPositions = groupNodesByLevel(positions, nodes, 350);
+        const finalPositions = groupedPositions;
+
         const edgeRoutes = {};
         layout.edges.forEach(e => {
             edgeRoutes[e.id] = e;
@@ -881,8 +991,8 @@ async function main() {
         }
 
         edges.forEach(edge => {
-            const sourcePos = positions[edge.source];
-            const targetPos = positions[edge.target];
+            const sourcePos = finalPositions[edge.source];
+            const targetPos = finalPositions[edge.target];
             
             if (!sourcePos || !targetPos) {
                 console.warn(`⚠️ Missing position for edge ${edge.id}`);
@@ -1155,7 +1265,7 @@ async function main() {
             .append("g")
             .attr("class", "node")
             .attr("data-id", d => d.id)
-            .attr("transform", d => `translate(${positions[d.id].x}, ${positions[d.id].y})`)
+            .attr("transform", d => `translate(${finalPositions[d.id].x}, ${finalPositions[d.id].y})`)
             .style("cursor", "pointer")
             .style("transition", "opacity 0.2s ease")
             .style("pointer-events", "all");
@@ -1244,7 +1354,7 @@ async function main() {
                 html += `<li>No references available</li>`;
             }
             
-            html += `</ul> 
+            html += `</ul>
         Color coding: <span style="color:#2ECC71;">easier</span>, <span style="color:#E74C3C;">harder</span>, <span style="color:#9B59B6;">equivalent</span>`;
             
             document.getElementById("info").innerHTML = html;
