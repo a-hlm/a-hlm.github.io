@@ -20,24 +20,18 @@ title: Research
  <br> 
  presented on 18 September 2025 at École Normale Supérieure de Lyon (ENS de Lyon), France 
  <br>
- \(available on [HAL](https://hal.science/tel-05289296v2)\)
- 
-### Preprints
-
-{% assign reversed_preprints = site.preprints | reverse %}
-
-{% for preprint in reversed_preprints %}
-
-- **{{preprint.title}}**{% if preprint.custom_accepted != false %}, _Accepted for publication {{preprint.custom_accepted}}_{% endif %}
- <br> 
- with {{preprint.custom_coauthors}}
- <br>
- \(available on  [{{preprint.custom_journal}}]({{preprint.custom_url}})\)
- 
-{% endfor %}
+ \(available on [HAL](https://hal.science/tel-05289296v2), [slides](https://a-hlm.github.io/theme/pdf/thesis_beamer.pdf)\)
 
 ### Publications
 
+
+- **Algorithms for solving the isogeny problem with oriented elliptic curves**
+ <br> 
+ with Maria Corte-Real Santos, Joseph Macula, Michael Meyer, Travis Morrison and Eli Orvis
+ <br>
+ accepted for publication in [Communications in Cryptology, Volume 3, Issue 3 2026](https://cic.iacr.org/)
+ <br>
+ \(available on [Cryptology ePrint Archive](https://eprint.iacr.org/2026/1219)\)
 
 - **Compressed Post-Quantum Silent OT from Isogenies**
  <br> 
@@ -61,3 +55,7 @@ title: Research
  
 {% endfor %}
 
+
+### Reviewing
+
+I have reviewed papers for DCC, ASIACRYPT 2026, ANTSXVII.
