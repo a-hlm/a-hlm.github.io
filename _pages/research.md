@@ -2,7 +2,7 @@
 layout: defaults/page
 permalink: research.html
 narrow: true
-title: Research
+title: Publications
 ---
 
 [comment]:### Ongoing work
@@ -37,7 +37,7 @@ title: Research
  <br> 
  with Pouria Fallahpour and Mahshid Riahinia
  <br>
- accepted for publication at [SCN 2026](https://scn.unisa.it/scn26/)
+ [SCN 2026](https://link.springer.com/chapter/10.1007/978-3-032-36264-3_18)
  <br>
  \(extended version available on [Cryptology ePrint Archive](https://eprint.iacr.org/2026/1444)\)
 
@@ -49,9 +49,9 @@ title: Research
  <br> 
  with {{paper.custom_coauthors}}
  <br>
- published in [{{paper.custom_journal}}]({{paper.custom_url}})
+ [{{paper.custom_journal}}]({{paper.custom_url}})
  <br>
- \(available on [Cryptology ePrint Archive]({{paper.custom_eprint}})\)
+ \(also available on [Cryptology ePrint Archive]({{paper.custom_eprint}})\)
  
 {% endfor %}
 
