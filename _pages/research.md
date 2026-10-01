@@ -2,7 +2,7 @@
 layout: defaults/page
 permalink: research.html
 narrow: true
-title: Publications
+title: Research
 ---
 
 [comment]:### Ongoing work
@@ -51,7 +51,7 @@ title: Publications
  <br>
  [{{paper.custom_journal}}]({{paper.custom_url}})
  <br>
- \(also available on [Cryptology ePrint Archive]({{paper.custom_eprint}})\)
+ \(available on [Cryptology ePrint Archive]({{paper.custom_eprint}})\)
  
 {% endfor %}
 
@@ -59,3 +59,9 @@ title: Publications
 [comment]: <> (### Reviewing)
 
 [comment]: <> (I have reviewed papers for DCC, ASIACRYPT 2026, ANTSXVII.)
+
+
+
+[comment]: <> (### Projects)
+
+[comment]: <> (QIMEN & PQarrots)
